@@ -25,12 +25,13 @@ class Crack(Dataset):
         image_frames = []
 
         for frame_idx, img_path in enumerate(sorted((Path(self.data_root) /
-                                                     self.crack_video_frames[index]).glob('*.jpg'))):
+                                                     self.crack_video_frames[index]).glob('*.jpg'),
+                                                    key=lambda file: int(file.name.split('_')[-1].split('.')[0]))):
             image_frame = imread(str(img_path))
             image_frame_resized = resize(image_frame, output_shape=self.image_size)
             image_frames.append(image_frame_resized)
 
-        image_frames_sub_sampled = self._subsample_images(image_frames[41:])
+        image_frames_sub_sampled = self._subsample_images(image_frames[52:])
         inputs = image_frames_sub_sampled[:self.input_frames]
         outputs = image_frames_sub_sampled[self.input_frames:self.seq_len]
         inputs = torch.from_numpy(inputs / 255.0).contiguous().float()
@@ -55,13 +56,13 @@ class Crack(Dataset):
 def load_data(batch_size: int, val_batch_size: int, data_root: Path, num_workers: int):
     train_data = Crack(
         data_root=data_root,
-        input_frames=10,
-        seq_len=20,
+        input_frames=8,
+        seq_len=16,
         image_size=(256, 128))
     test_data = Crack(
         data_root=data_root,
-        input_frames=10,
-        seq_len=20,
+        input_frames=8,
+        seq_len=16,
         image_size=(256, 128))
     dataloader_train = torch.utils.data.DataLoader(
         train_data, batch_size=batch_size, shuffle=True, pin_memory=True, num_workers=num_workers)
