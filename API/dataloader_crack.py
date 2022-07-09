@@ -29,7 +29,7 @@ class Crack(Dataset):
             image_frame_resized = resize(image_frame, output_shape=self.image_size)
             image_frames.append(image_frame_resized)
 
-        image_frames_sub_sampled = self._subsample_images(image_frames[1:])
+        image_frames_sub_sampled = self._subsample_images(image_frames[21:])
         inputs = image_frames_sub_sampled[:self.input_frames]
         outputs = image_frames_sub_sampled[self.input_frames:self.seq_len]
         inputs = torch.from_numpy(inputs / 255.0).contiguous().float()
@@ -54,12 +54,12 @@ class Crack(Dataset):
 def load_data(batch_size: int, val_batch_size: int, data_root: Path, num_workers: int):
     train_data = Crack(
         data_root=data_root,
-        input_frames=12,
+        input_frames=14,
         seq_len=20,
         image_size=(256, 128))
     test_data = Crack(
         data_root=data_root,
-        input_frames=12,
+        input_frames=14,
         seq_len=20,
         image_size=(256, 128))
     dataloader_train = torch.utils.data.DataLoader(
