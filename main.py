@@ -15,14 +15,15 @@ def create_parser():
     parser.add_argument('--seed', default=1, type=int)
 
     # dataset parameters
-    parser.add_argument('--batch_size', default=16, type=int, help='Batch size')
-    parser.add_argument('--val_batch_size', default=16, type=int, help='Batch size')
-    parser.add_argument('--data_root', default='./data/')
-    parser.add_argument('--dataname', default='mmnist', choices=['mmnist', 'taxibj'])
+    parser.add_argument('--batch_size', default=4, type=int, help='Batch size')
+    parser.add_argument('--val_batch_size', default=4, type=int, help='Batch size')
+    parser.add_argument('--data_root', default='./cropped_video_frames_dataset')
+    parser.add_argument('--dataname', default='crack', choices=['mmnist', 'taxibj'])
     parser.add_argument('--num_workers', default=8, type=int)
 
     # model parameters
-    parser.add_argument('--in_shape', default=[10, 1, 64, 64], type=int,nargs='*') # [10, 1, 64, 64] for mmnist, [4, 2, 32, 32] for taxibj  
+    parser.add_argument('--in_shape', default=[12, 3, 256, 128], type=int,
+                        nargs='*') # [10, 1, 64, 64] for mmnist, [4, 2, 32, 32] for taxibj
     parser.add_argument('--hid_S', default=64, type=int)
     parser.add_argument('--hid_T', default=256, type=int)
     parser.add_argument('--N_S', default=4, type=int)
