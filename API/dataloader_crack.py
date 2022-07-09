@@ -44,8 +44,6 @@ class Crack(Dataset):
                                    dtype=np.float32)
         stride = int(np.ceil(len(image_frames) / self.seq_len))
         image_frames_sub = image_frames[::stride]
-        if len(image_frames_sub) < self.seq_len:
-            image_frames_sub.append(image_frames[-1])
         assert len(image_frames_sub) == self.seq_len, f"After subsampling length of image frame should be equal to " \
                                                       f"the sequence length got image_frames={len(image_frames_sub)}" \
                                                       f" for seq_len={self.seq_len}"
