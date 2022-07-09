@@ -5,6 +5,7 @@ from skimage.io import imread
 from skimage.transform import resize
 from pathlib import Path
 from torch.utils.data import Dataset
+import torch
 
 
 class Crack(Dataset):
@@ -34,6 +35,8 @@ class Crack(Dataset):
         outputs = image_frames_sub_sampled[self.input_frames:self.seq_len]
         inputs = torch.from_numpy(inputs / 255.0).contiguous().float()
         outputs = torch.from_numpy(outputs / 255.0).contiguous().float()
+        inputs.transpose(2, 3).transpose(1, 2)
+        outputs.transpose(2, 3).transpose(1, 2)
         return inputs, outputs
 
     def _subsample_images(self, image_frames: List[np.ndarray]) -> np.ndarray:
