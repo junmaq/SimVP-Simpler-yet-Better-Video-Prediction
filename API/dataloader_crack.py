@@ -36,8 +36,8 @@ class Crack(Dataset):
         inputs = torch.from_numpy(inputs / 255.0).contiguous().float()
         outputs = torch.from_numpy(outputs / 255.0).contiguous().float()
         print(inputs.shape)
-        inputs.transpose(2, 3).transpose(1, 2)
-        outputs.transpose(2, 3).transpose(1, 2)
+        inputs = inputs.transpose(2, 3).transpose(1, 2)
+        outputs = outputs.transpose(2, 3).transpose(1, 2)
         print(inputs.shape)
         return inputs, outputs
 
