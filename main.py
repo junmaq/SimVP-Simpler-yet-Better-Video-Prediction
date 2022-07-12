@@ -4,10 +4,12 @@ from exp import Exp
 import warnings
 warnings.filterwarnings('ignore')
 
+
 def create_parser():
     parser = argparse.ArgumentParser()
     # Set-up parameters
-    parser.add_argument('--device', default='cuda', type=str, help='Name of device to use for tensor computations (cuda/cpu)')
+    parser.add_argument('--device', default='cuda', type=str, help='Name of device to use for tensor '
+                                                                   'computations (cuda/cpu)')
     parser.add_argument('--res_dir', default='./results', type=str)
     parser.add_argument('--ex_name', default='Debug', type=str)
     parser.add_argument('--use_gpu', default=True, type=bool)
@@ -18,15 +20,15 @@ def create_parser():
     parser.add_argument('--batch_size', default=4, type=int, help='Batch size')
     parser.add_argument('--val_batch_size', default=4, type=int, help='Batch size')
     parser.add_argument('--data_root', default='./cropped_video_frames_dataset')
-    parser.add_argument('--dataname', default='crack', choices=['mmnist', 'taxibj'])
+    parser.add_argument('--dataname', default='crack', choices=['mmnist', 'taxibj', 'crack'])
     parser.add_argument('--num_workers', default=8, type=int)
 
     # model parameters
-    parser.add_argument('--in_shape', default=[10, 3, 256, 128], type=int,
+    parser.add_argument('--in_shape', default=[8, 3, 256, 128], type=int,
                         nargs='*') # [10, 1, 64, 64] for mmnist, [4, 2, 32, 32] for taxibj
     parser.add_argument('--hid_S', default=64, type=int)
     parser.add_argument('--hid_T', default=256, type=int)
-    parser.add_argument('--N_S', default=4, type=int)
+    parser.add_argument('--N_S', default=8, type=int)
     parser.add_argument('--N_T', default=8, type=int)
     parser.add_argument('--groups', default=4, type=int)
 

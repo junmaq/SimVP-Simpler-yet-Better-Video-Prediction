@@ -112,7 +112,7 @@ class Exp:
 
             if epoch % args.log_step == 0:
                 with torch.no_grad():
-                    vali_loss = self.vali(self.vali_loader)
+                    vali_loss = self.vali(self.vali_loader, epoch)
                     if epoch % (args.log_step * 100) == 0:
                         self._save(name=str(epoch))
                 print_log("Epoch: {0} | Train Loss: {1:.4f} Vali Loss: {2:.4f}\n".format(
@@ -123,7 +123,7 @@ class Exp:
         self.model.load_state_dict(torch.load(best_model_path))
         return self.model
 
-    def vali(self, vali_loader):
+    def vali(self, vali_loader, epoch):
         self.model.eval()
         preds_lst, trues_lst, total_loss = [], [], []
         vali_pbar = tqdm(vali_loader)
@@ -144,6 +144,11 @@ class Exp:
         total_loss = np.average(total_loss)
         preds = np.concatenate(preds_lst, axis=0)
         trues = np.concatenate(trues_lst, axis=0)
+        folder_path = f'{self.args.res_dir}/visualizations'
+        if not os.path.exists(folder_path):
+            os.mkdir(folder_path)
+        for np_data in ['inputs', 'trues', 'preds']:
+            np.save(osp.join(folder_path, np_data + f'_{epoch}.npy'), vars()[np_data])
         mse, mae, ssim, psnr = metric(preds, trues, vali_loader.dataset.mean, vali_loader.dataset.std, True)
         print_log('vali mse:{:.4f}, mae:{:.4f}, ssim:{:.4f}, psnr:{:.4f}'.format(mse, mae, ssim, psnr))
         self.model.train()
