@@ -17,6 +17,8 @@ class Crack(Dataset):
         self.input_frames: int = input_frames
         self.seq_len: int = seq_len
         self.image_size: Tuple[int, int] = image_size
+        self.mean = 0
+        self.std = 1
 
     def __len__(self):
         return len(self.crack_video_frames)
