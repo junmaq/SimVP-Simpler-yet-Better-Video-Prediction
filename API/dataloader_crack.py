@@ -30,14 +30,14 @@ class Crack(Dataset):
                                                      self.crack_video_frames[index]).glob('*.jpg'),
                                                     key=lambda file: int(file.name.split('_')[-1].split('.')[0]))):
             image_frame = imread(str(img_path))
-            image_frame_resized = resize(image_frame, output_shape=self.image_size)
+            image_frame_resized = resize(image_frame, output_shape=self.image_size, preserve_range=True)
             image_frames.append(image_frame_resized)
 
         image_frames_sub_sampled = self._subsample_images(image_frames[52:])
         inputs = image_frames_sub_sampled[:self.input_frames]
         outputs = image_frames_sub_sampled[self.input_frames:self.seq_len]
-        inputs = torch.from_numpy(inputs / 255.0).contiguous().float()
-        outputs = torch.from_numpy(outputs / 255.0).contiguous().float()
+        inputs = torch.from_numpy(inputs).contiguous().float() / 255.0
+        outputs = torch.from_numpy(outputs).contiguous().float() / 255.0
         inputs = inputs.transpose(2, 3).transpose(1, 2)
         outputs = outputs.transpose(2, 3).transpose(1, 2)
         return inputs, outputs
