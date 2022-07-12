@@ -17,7 +17,7 @@ def create_parser():
     parser.add_argument('--seed', default=1, type=int)
 
     # dataset parameters
-    parser.add_argument('--batch_size', default=8, type=int, help='Batch size')
+    parser.add_argument('--batch_size', default=4, type=int, help='Batch size')
     parser.add_argument('--val_batch_size', default=8, type=int, help='Batch size')
     parser.add_argument('--data_root', default='./cropped_video_frames_dataset')
     parser.add_argument('--dataname', default='crack', choices=['mmnist', 'taxibj', 'crack'])
@@ -26,9 +26,9 @@ def create_parser():
     # model parameters
     parser.add_argument('--in_shape', default=[8, 3, 256, 128], type=int,
                         nargs='*') # [10, 1, 64, 64] for mmnist, [4, 2, 32, 32] for taxibj
-    parser.add_argument('--hid_S', default=128, type=int)
-    parser.add_argument('--hid_T', default=512, type=int)
-    parser.add_argument('--N_S', default=8, type=int)
+    parser.add_argument('--hid_S', default=156, type=int)
+    parser.add_argument('--hid_T', default=640, type=int)
+    parser.add_argument('--N_S', default=6, type=int)
     parser.add_argument('--N_T', default=8, type=int)
     parser.add_argument('--groups', default=4, type=int)
 
