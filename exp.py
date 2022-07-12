@@ -147,7 +147,7 @@ class Exp:
         folder_path = f'{self.args.res_dir}/visualizations'
         if not os.path.exists(folder_path):
             os.mkdir(folder_path)
-        for np_data in ['inputs', 'trues', 'preds']:
+        for np_data in ['trues', 'preds']:
             np.save(osp.join(folder_path, np_data + f'_{epoch}.npy'), vars()[np_data])
         mse, mae, ssim, psnr = metric(preds, trues, vali_loader.dataset.mean, vali_loader.dataset.std, True)
         print_log('vali mse:{:.4f}, mae:{:.4f}, ssim:{:.4f}, psnr:{:.4f}'.format(mse, mae, ssim, psnr))
