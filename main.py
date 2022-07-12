@@ -26,7 +26,7 @@ def create_parser():
     # model parameters
     parser.add_argument('--in_shape', default=[8, 3, 256, 128], type=int,
                         nargs='*') # [10, 1, 64, 64] for mmnist, [4, 2, 32, 32] for taxibj
-    parser.add_argument('--hid_S', default=64, type=int)
+    parser.add_argument('--hid_S', default=128, type=int)
     parser.add_argument('--hid_T', default=256, type=int)
     parser.add_argument('--N_S', default=8, type=int)
     parser.add_argument('--N_T', default=8, type=int)
