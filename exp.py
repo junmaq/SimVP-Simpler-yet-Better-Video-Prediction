@@ -102,7 +102,7 @@ class Exp:
 
                 loss = self.criterion(pred_y, batch_y)
                 train_loss.append(loss.item())
-                train_pbar.set_description('train loss: {:.4f}'.format(loss.item()))
+                train_pbar.set_description('train loss: {:.6f}'.format(loss.item()))
 
                 loss.backward()
                 self.optimizer.step()
@@ -115,7 +115,7 @@ class Exp:
                     vali_loss = self.vali(self.vali_loader, epoch)
                     if epoch % (args.log_step * 100) == 0:
                         self._save(name=str(epoch))
-                print_log("Epoch: {0} | Train Loss: {1:.4f} Vali Loss: {2:.4f}\n".format(
+                print_log("Epoch: {0} | Train Loss: {1:.6f} Vali Loss: {2:.6f}\n".format(
                     epoch + 1, train_loss, vali_loss))
                 recorder(vali_loss, self.model, self.path)
 
@@ -138,7 +138,7 @@ class Exp:
 
             loss = self.criterion(pred_y, batch_y)
             vali_pbar.set_description(
-                'vali loss: {:.4f}'.format(loss.mean().item()))
+                'vali loss: {:.6f}'.format(loss.mean().item()))
             total_loss.append(loss.mean().item())
 
         total_loss = np.average(total_loss)
@@ -150,7 +150,7 @@ class Exp:
         for np_data in ['trues', 'preds']:
             np.save(osp.join(folder_path, np_data + f'_{epoch}.npy'), vars()[np_data][:4])
         mse, mae, ssim, psnr = metric(preds, trues, vali_loader.dataset.mean, vali_loader.dataset.std, True)
-        print_log('vali mse:{:.4f}, mae:{:.4f}, ssim:{:.4f}, psnr:{:.4f}'.format(mse, mae, ssim, psnr))
+        print_log('vali mse:{:.6f}, mae:{:.6f}, ssim:{:.6f}, psnr:{:.6f}'.format(mse, mae, ssim, psnr))
         self.model.train()
         return total_loss
 
