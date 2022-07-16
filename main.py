@@ -20,6 +20,8 @@ def create_parser():
     parser.add_argument('--batch_size', default=4, type=int, help='Batch size')
     parser.add_argument('--val_batch_size', default=4, type=int, help='Batch size')
     parser.add_argument('--data_root', default='./cropped_video_frames_dataset')
+    parser.add_argument('--train_dir', default='./crack_train')
+    parser.add_argument('--val_dir', default='./crack_val')
     parser.add_argument('--dataname', default='crack', choices=['mmnist', 'taxibj', 'crack'])
     parser.add_argument('--num_workers', default=8, type=int)
 

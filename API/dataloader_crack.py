@@ -55,14 +55,14 @@ class Crack(Dataset):
         return image_frames_np
 
 
-def load_data(batch_size: int, val_batch_size: int, data_root: Path, num_workers: int):
+def load_data(batch_size: int, val_batch_size: int, num_workers: int, data_root: Path, train_dir: Path, val_dir: Path):
     train_data = Crack(
-        data_root=data_root,
+        data_root=train_dir,
         input_frames=8,
         seq_len=16,
         image_size=(256, 128))
     test_data = Crack(
-        data_root=data_root,
+        data_root=val_dir,
         input_frames=8,
         seq_len=16,
         image_size=(256, 128))
